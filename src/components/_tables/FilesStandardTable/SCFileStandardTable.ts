@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import SCTableRow from '../../../ui/SCTableRow';
-import SCGlobalButton from '../../../components/ElementsAndActions/GlobalButton/SCGlobalButton';
+import SCGlobalButton from '../../ElementsAndActions/GlobalButton/SCGlobalButton';
 
 import { theme } from '../../../theme/theme';
 
