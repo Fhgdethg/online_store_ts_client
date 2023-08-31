@@ -58,6 +58,7 @@ export const filesApi = api.injectEndpoints({
         const body = new FormData();
         const encodedFilename = encodeURIComponent(file.name);
         body.append('file', file, encodedFilename);
+        console.log(body)
         if (currentDir) body.append('parent', currentDir);
 
         return {

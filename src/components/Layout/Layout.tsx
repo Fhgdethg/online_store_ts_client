@@ -27,9 +27,11 @@ const SCLayout = styled.div`
     width: 100%;
   }
 
-  ${SCWrapper} {
+  main > ${SCWrapper} {
     flex: 1;
     width: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   ${SCGlobalModal} {

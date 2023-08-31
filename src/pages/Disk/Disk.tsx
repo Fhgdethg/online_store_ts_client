@@ -2,10 +2,12 @@ import React, { ChangeEvent } from 'react';
 
 import GlobalButton from '../../components/ElementsAndActions/GlobalButton/GlobalButton';
 import FilesStandardTable from '../../components/_tables/FilesStandardTable/FilesStandardTable';
+import FileInput from '../../components/ElementsAndActions/FileInput/FileInput';
+import Spinner from '../../components/ElementsAndActions/Spinner/Spinner';
+import DndWrapper from "../../components/DndWrapper/DndWrapper";
 import { ReactComponent as GoBack } from '../../assets/go_back.svg';
 
 import SCDisk from './SCDisk';
-import FileInput from '../../components/ElementsAndActions/FileInput/FileInput';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
@@ -18,16 +20,6 @@ import {
   changeCurrentDir,
   removeLastDirFromStack,
 } from '../../redux/currentDir/currentDirSlice';
-import Spinner from '../../components/ElementsAndActions/Spinner/Spinner';
-
-interface CustomFile {
-  lastModified: number;
-  lastModifiedDate: Date;
-  name: string;
-  size: number;
-  type: string;
-  webkitRelativePath: string;
-}
 
 const Disk = () => {
   const dispatch = useAppDispatch();
@@ -45,36 +37,26 @@ const Disk = () => {
 
   const openCreateFolder = () => dispatch(showModal(modalNames.createFolder));
 
-  // const parseFilesArrToStandardArr = (files: CustomFile[]) =>
-  //   files.map((file) => ({
-  //     lastModified: file.lastModified,
-  //     lastModifiedDate: file.lastModifiedDate,
-  //     name: file.name,
-  //     size: file.size,
-  //     type: file.type,
-  //     webkitRelativePath: file.webkitRelativePath,
-  //   }));
-
-  const onChooseFile = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChooseFile = (e: any) => {
     const files = Array.from(e.target.files || []);
-    console.log(files);
-    // const filesArr = parseFilesArrToStandardArr(files);
     files.forEach((file) => uploadFile({ file, currentDir }));
   };
 
   return (
     <SCDisk>
-      <div className='functional_buttons'>
-        <GlobalButton buttonType='opacity' buttonAction={goBackHandler}>
-          <GoBack />
-        </GlobalButton>
-        <GlobalButton buttonType='opacity' buttonAction={openCreateFolder}>
-          Создать папку
-        </GlobalButton>
-        {isUploadingFile && <Spinner />}
-        <FileInput inputType='opacity' onChange={onChooseFile} isMultiple />
-      </div>
-      <FilesStandardTable />
+      <DndWrapper onChooseFile={onChooseFile}>
+        <div className='functional_buttons'>
+          <GlobalButton buttonType='opacity' buttonAction={goBackHandler}>
+            <GoBack />
+          </GlobalButton>
+          <GlobalButton buttonType='opacity' buttonAction={openCreateFolder}>
+            Создать папку
+          </GlobalButton>
+          {isUploadingFile && <Spinner />}
+          <FileInput inputType='opacity' onChange={onChooseFile} isMultiple />
+        </div>
+        <FilesStandardTable />
+      </DndWrapper>
     </SCDisk>
   );
 };

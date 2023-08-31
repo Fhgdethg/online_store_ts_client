@@ -37,6 +37,7 @@ const { reducer, actions } = createSlice({
     builder.addMatcher(
       authApi.endpoints.auth.matchRejected,
       (state, action) => {
+        localStorage.removeItem(lSKeys.t)
         state.isAuth = authHandler();
       },
     );

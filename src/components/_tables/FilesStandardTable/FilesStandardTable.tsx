@@ -20,6 +20,7 @@ import {
   addDirInStack,
 } from '../../../redux/currentDir/currentDirSlice';
 import { getStoreCurrentDirData } from '../../../redux/currentDir/currentDirSelectors';
+import SCTableCell from "../../../ui/SCTableCell";
 
 const FilesStandardTable = () => {
   const dispatch = useAppDispatch();
@@ -53,9 +54,9 @@ const FilesStandardTable = () => {
               }
             >
               {file.type === 'dir' ? <Dir /> : <File />}
-              <p>{file.name}</p>
-              <p>{file.date.slice(0, 10)}</p>
-              <div className='file_size_and_extended'>
+              <SCTableCell><p>{file.name}</p></SCTableCell>
+              <SCTableCell><p>{file.date.slice(0, 10)}</p></SCTableCell>
+              <SCTableCell className='file_size_and_extended'>
                 <p>{file.size}b</p>
                 <GlobalButton buttonType='opacity'>
                   <Share />
@@ -63,7 +64,7 @@ const FilesStandardTable = () => {
                 <GlobalButton buttonType='opacity'>
                   <Delete />
                 </GlobalButton>
-              </div>
+              </SCTableCell>
             </SCTableRow>
           ))}
       </SCTableBody>

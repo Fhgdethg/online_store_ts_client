@@ -10,7 +10,7 @@ const Registration = React.lazy(
 const Login = React.lazy(() => import('../../pages/Login/Login'));
 const Disk = React.lazy(() => import('../../pages/Disk/Disk'));
 
-import { useAppSelector } from '../../redux/hooks';
+import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 
 import { getStoreAuthData } from '../../redux/auth/authSelectors';
 import { useAuthQuery } from '../../redux/api/authApi';
@@ -19,12 +19,13 @@ import { routes } from '../../routes/routes';
 
 const App = () => {
   const navigate = useNavigate();
+
   useAuthQuery();
 
   const { isAuth } = useAppSelector(getStoreAuthData);
 
   useEffect(() => {
-    if (!isAuth) navigate(routes.login);
+      navigate(routes.root);
   }, [isAuth]);
 
   return (
@@ -44,6 +45,10 @@ const App = () => {
                 <Route
                   path={routes.registration}
                   element={<ElementWrapper element={<Registration />} />}
+                />
+                <Route
+                  path={routes.root}
+                  element={<ElementWrapper element={<Login />} />}
                 />
                 <Route
                   path={routes.login}
