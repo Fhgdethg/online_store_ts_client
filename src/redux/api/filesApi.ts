@@ -64,34 +64,58 @@ export const filesApi = api.injectEndpoints({
         return {
           url: `${API_LIST.files}${API_LIST.upload}`,
           method: 'POST',
-          headers: {
-            // 'Content-Type': 'multipart/form-data',
-            // onUploadProgress: (progressEvent: any) => {
-            //   const totalLength = progressEvent.lengthComputable
-            //     ? progressEvent.total
-            //     : progressEvent.target.getResponseHeader('content-length') ||
-            //       progressEvent.target.getResponseHeader(
-            //         'x-decompressed-content-length',
-            //       );
-            //   console.log('total', totalLength);
-            //   if (totalLength) {
-            //     const progress = Math.round(
-            //       (progressEvent.loaded * 100) / totalLength,
-            //     );
-            //     console.log(progress);
-            //   }
-            // },
-          },
           body,
         };
       },
 
       invalidatesTags: [rtkKeys.files] as any,
     }),
+    downloadFile: builder.mutation<any, any>({
+      query: (file) => ({
+        url: `${API_LIST.files}${API_LIST.download}?id=${file._id}`,
+        headers: {
+          'Content-Type': 'text/plain',
+          'Accept': 'text/plain'
+          // 'X-Content-Type-Options': 'nosniff'
+        },
+      }),
+      async onQueryStarted(file ,{dispatch, queryFulfilled})  {
+        try {
+          // let res: any;
+
+          // console.log(file);
+          // try {
+            const response = await queryFulfilled;
+          console.log(response)
+          //   console.log(response)
+          //   res = response
+          // } catch (err: any) {
+          //   console.log(err)
+          //   if (err?.error?.data)
+          //     res = err.error.data
+          //   else throw new Error(err)
+          // }
+          // const {error: {data}}: any = err
+
+          const blob = new Blob([JSON.stringify(response)]);
+          // const blob = JSON.stringify(response).blob()
+          const downloadUrl = URL.createObjectURL(blob)
+          const link = document.createElement('a')
+          link.href = downloadUrl
+          link.download = file.name
+          document.body.appendChild(link)
+          link.click()
+          link.remove()
+          // return res
+        } catch (err) {
+          console.log(err)
+        }
+      }
+    }),
   }),
 });
 
-export const { useGetFilesQuery, useCreateDirMutation, useUploadFileMutation } =
+export const { useGetFilesQuery, useCreateDirMutation, useUploadFileMutation, useDownloadFileMutation } =
   filesApi;
 
 export default filesApi.reducer;

@@ -18,6 +18,10 @@ const SCFileStandardTable = styled.div`
     align-items: center;
     gap: 20px;
   }
+  
+  p {
+    min-width: 100px;
+  }
 
   ${SCGlobalButton} {
     display: none;

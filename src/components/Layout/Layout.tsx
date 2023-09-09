@@ -45,7 +45,7 @@ const Layout = () => {
       <GlobalModal />
       <Header />
       <main className='main'>
-        <SCWrapper horizontalPadding={12}>
+        <SCWrapper horizontalPadding={12} maxSize={2200}>
           <Outlet />
         </SCWrapper>
       </main>

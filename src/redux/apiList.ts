@@ -4,4 +4,5 @@ export const API_LIST = {
   auth: '/auth',
   files: '/files',
   upload: '/upload',
+  download: '/download'
 };
