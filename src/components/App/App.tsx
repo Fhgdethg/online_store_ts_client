@@ -10,7 +10,7 @@ const Registration = React.lazy(
 const Login = React.lazy(() => import('../../pages/Login/Login'));
 const Disk = React.lazy(() => import('../../pages/Disk/Disk'));
 
-import {useAppDispatch, useAppSelector} from '../../redux/hooks';
+import { useAppSelector } from '../../redux/hooks';
 
 import { getStoreAuthData } from '../../redux/auth/authSelectors';
 import { useAuthQuery } from '../../redux/api/authApi';

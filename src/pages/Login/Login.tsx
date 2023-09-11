@@ -10,11 +10,10 @@ import { useAppDispatch } from '../../redux/hooks';
 import { changeAuth } from '../../redux/auth/authSlice';
 import { ILoginResponse, useLoginMutation } from '../../redux/api/authApi';
 
-import { rtkKeys } from '../../redux/rtkKeys';
 import { lSKeys } from '../../constants/lSKeys';
+import { routes } from '../../routes/routes';
 
 import { IUserData } from '../../components/AuthForm/AuthFormTypes';
-import { routes } from '../../routes/routes';
 
 const SCLogin = styled.div`
   height: 100%;

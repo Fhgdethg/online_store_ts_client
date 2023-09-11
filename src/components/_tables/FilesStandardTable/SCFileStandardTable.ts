@@ -3,10 +3,6 @@ import styled from 'styled-components';
 import SCTableRow from '../../../ui/SCTableRow';
 import SCGlobalButton from '../../ElementsAndActions/GlobalButton/SCGlobalButton';
 
-import { theme } from '../../../theme/theme';
-
-const { colors } = theme;
-
 const SCFileStandardTable = styled.div`
   margin-top: 30px;
   max-height: calc(100vh - 220px);

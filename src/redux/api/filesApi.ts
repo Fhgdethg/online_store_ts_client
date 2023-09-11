@@ -2,7 +2,8 @@ import { hideModal } from '../globalModal/globalModalSlice';
 
 import { API_LIST } from '../apiList';
 import { rtkKeys } from '../rtkKeys';
-import { api } from './api';
+import {api, baseUrl} from './api';
+import {lSKeys} from "../../constants/lSKeys";
 
 export interface IFile {
   date: string;
@@ -70,52 +71,41 @@ export const filesApi = api.injectEndpoints({
 
       invalidatesTags: [rtkKeys.files] as any,
     }),
-    downloadFile: builder.mutation<any, any>({
+    deleteFile: builder.mutation<any, any>({
       query: (file) => ({
-        url: `${API_LIST.files}${API_LIST.download}?id=${file._id}`,
-        headers: {
-          'Content-Type': 'text/plain',
-          'Accept': 'text/plain'
-          // 'X-Content-Type-Options': 'nosniff'
-        },
+        method: 'DELETE',
+        url: `${API_LIST.files}?id=${file._id}`
       }),
-      async onQueryStarted(file ,{dispatch, queryFulfilled})  {
-        try {
-          // let res: any;
-
-          // console.log(file);
-          // try {
-            const response = await queryFulfilled;
-          console.log(response)
-          //   console.log(response)
-          //   res = response
-          // } catch (err: any) {
-          //   console.log(err)
-          //   if (err?.error?.data)
-          //     res = err.error.data
-          //   else throw new Error(err)
-          // }
-          // const {error: {data}}: any = err
-
-          const blob = new Blob([JSON.stringify(response)]);
-          // const blob = JSON.stringify(response).blob()
-          const downloadUrl = URL.createObjectURL(blob)
-          const link = document.createElement('a')
-          link.href = downloadUrl
-          link.download = file.name
-          document.body.appendChild(link)
-          link.click()
-          link.remove()
-          // return res
-        } catch (err) {
-          console.log(err)
-        }
-      }
+      invalidatesTags: [rtkKeys.files] as any,
     }),
+
   }),
 });
 
-export const { useGetFilesQuery, useCreateDirMutation, useUploadFileMutation, useDownloadFileMutation } =
+export const downloadFile = async (file: any) =>
+{
+  try {
+    const response = await fetch(`${baseUrl}${API_LIST.files}${API_LIST.download}?id=${file._id}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem(lSKeys.t)}`
+      },
+    })
+    if (response.status === 200) {
+      const blob = await response.blob()
+      const downloadUrl = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = downloadUrl
+      link.download = file.name
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const { useGetFilesQuery, useCreateDirMutation, useUploadFileMutation, useDeleteFileMutation } =
   filesApi;
 
 export default filesApi.reducer;

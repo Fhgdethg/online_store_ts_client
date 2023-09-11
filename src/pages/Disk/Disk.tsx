@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 
 import GlobalButton from '../../components/ElementsAndActions/GlobalButton/GlobalButton';
 import FilesStandardTable from '../../components/_tables/FilesStandardTable/FilesStandardTable';

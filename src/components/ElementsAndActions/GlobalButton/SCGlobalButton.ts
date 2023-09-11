@@ -25,7 +25,7 @@ const SCGlobalButton = styled.button<ISCGlobalButtonProps>`
   cursor: pointer;
 
   &:hover {
-    transform: scale(1.02);
+    transform: scaleX(1.02);
   }
 
   &:disabled {

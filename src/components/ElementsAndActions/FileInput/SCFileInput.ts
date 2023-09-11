@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 import { theme } from '../../../theme/theme';
-import { ChangeEvent } from 'react';
 
 const { colors } = theme;
 

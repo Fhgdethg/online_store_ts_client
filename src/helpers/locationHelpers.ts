@@ -1,4 +1,5 @@
 import queryString from 'query-string';
+
 import appHistory from '../routes/history';
 
 export const getQueryByNameFromUrl = (queryName: string) => {

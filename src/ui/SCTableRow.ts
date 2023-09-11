@@ -16,10 +16,6 @@ const SCTableRow = styled.div<SCTableRowProps>`
   cursor: pointer;
   padding: 8px 0;
   grid-column-gap: 20px;
-
-  &:hover {
-    border-bottom-color: ${colors.darkBlue};
-  }
 `;
 
 export default SCTableRow;

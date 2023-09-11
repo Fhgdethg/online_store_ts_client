@@ -12,7 +12,6 @@ import { useAppSelector } from '../../../redux/hooks';
 import { getStoreCurrentDirData } from '../../../redux/currentDir/currentDirSelectors';
 import {
   useCreateDirMutation,
-  useGetFilesQuery,
 } from '../../../redux/api/filesApi';
 
 const SCCreateFolder = styled.div`

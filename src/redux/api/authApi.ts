@@ -1,6 +1,5 @@
 import { api } from './api';
 import { API_LIST } from '../apiList';
-import {hideModal} from "../globalModal/globalModalSlice";
 
 interface IUser {
   email: string;

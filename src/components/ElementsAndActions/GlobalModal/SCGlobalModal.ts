@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import SCWhiteWrapper from '../../../ui/SCWhiteWrapper';
 
 const SCGlobalModal = styled.div`
